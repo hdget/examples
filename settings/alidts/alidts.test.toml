@@ -16,7 +16,7 @@
             brokers=["127.0.0.1:18003"]
             [[sdk.kafka.items.consumers]]
                 name = "syncsomething"
-                username = "testuser"
+                user = "testuser"
                 password = "testpassword"
                 group_id = "testgroup"
                 topic = "testtopic"
