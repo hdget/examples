@@ -1,0 +1,14 @@
+[sdk]
+    [sdk.log]
+        filename = "demo.log"
+        [sdk.log.rotate]
+            # 最大保存时间7天(单位hour)
+            max_age = 168
+            # 日志切割时间间隔24小时（单位hour)
+            rotation_time=24
+    [sdk.service]
+        [[sdk.service.items]]
+            name = "testservice"
+            [sdk.service.items.server]
+                address = "0.0.0.0:12345"
+                middlewares=["circuitbreak", "ratelimit"]
