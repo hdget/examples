@@ -5,6 +5,8 @@ import (
 	"context"
 	"examples/alidts/g"
 	"examples/microservice/autogen"
+	"examples/microservice/service"
+	"examples/microservice/service/handler"
 	"github.com/hdget/sdk"
 	"github.com/hdget/sdk/utils"
 	"github.com/spf13/cobra"
@@ -39,10 +41,20 @@ var rootCmd = &cobra.Command{
 			utils.Fatal("sdk initialize", "err", err)
 		}
 
+		// 必须手动注册服务实现
+		svc := &service.SearchServiceImpl{}
 		srv := sdk.MicroService.By("testservice").CreateServer()
-		autogen.RegisterSearchServiceServer(srv.GetGrpcServer(), &searchServiceImpl{})
+		endpoints := &service.Endpoints{
+			srv.CreateEndpointServer(svc, &handler.SearchHandler{}),
+			srv.CreateEndpointServer(svc, &handler.HelloHandler{}),
+		}
+		autogen.RegisterSearchServiceServer(srv.GetGrpcServer(), endpoints)
 		srv.Run()
 	},
+}
+
+func register() {
+
 }
 
 func init() {

@@ -3,7 +3,8 @@ syntax = "proto3";
 package autogen;
 
 service SearchService {
-    rpc Search(SearchRequest) returns (SearchResponse) {}
+    rpc Search(SearchRequest) returns (SearchResponse);
+    rpc Hello(HelloRequest) returns (HelloResponse);
 }
 
 message SearchRequest {
@@ -12,4 +13,12 @@ message SearchRequest {
 
 message SearchResponse {
     string response = 1;
+}
+
+message HelloRequest {
+
+}
+
+message HelloResponse {
+    string response=1;
 }
